@@ -1,84 +1,96 @@
 
+# Sorting Searching
+
+
+### Resversort
+
+Algorithm:
+```sh
+Reversort(L):
+  for i := 1 to length(L) - 1
+    j := position with the minimum value in L between i and length(L), inclusive
+    Reverse(L[i..j])
+
+```
+
+
+Code:
+```cpp
+int reversort(vector<int>& v) {
+    int cost = 0;  
+    
+    for(int i=0; i<v.size()-1; ++i){
+        int m = *min_element(v.begin() + i, v.end());
+        auto p = find(v.begin(), v.end(), m);
+        reverse(v.begin() + i,  p);
+        cost += distance(v.begin(), p) - i + 1;
+    }
+    return cost;
+
+}
+```
+
+
+### Engineering Reversort
 
 
 
-LLC services:
-- Connection mode service
-- Acknowledged connectionless service
-- Unacknowledged connectionless service
 
 
-
-Every station connected to an Ethernet network is provided with a 6-byte physical address, known as a MAC address, which is typically stored in the network interface card (NIC).
-
-
-
-When 2 or more bits in a data unit has been changed during the transmission, the error is called - Burst Error
-
-
-
-The Media Access Control (MAC) sublayer of the Data Link Layer performs data link functions that depend upon the type of medium, such as controlling access to the network medium and addressing frames for transmission
-
-
-**BGP protocol**
-
-- UPDATE and NOTIFICATION messages are used for - Exchanging reachability information and to notify an error
-- BGP relies on IGP for packet forwarding between IBGP peers
-- BGP communication packet types are OPEN, UPDATE, NOTIFICATION, KEEPALIVE
+### Number Game
 
 
 
 
-Open Shortest Path First (OSPF) is Link state routing protocol.
-
-
-Distance-vector routing protocol uses the Bellman-Ford algorithm to calculate the best path for forwarding IP packets.
-
-
-
-**FTP**
-
-- uses port 21
-- control connection is used by FTP to send messages to the client in response to control commands
-
-
-| Service                    | Port |
-| -------------------------- | ---- |
-| HTTP / Apache Server httpd | 80   |
-| HTTPS                      | 443  |
-| FTP                        | 21   |
-| Telnet                     | 23   |
-| POP                        | 110  |
-| SMTP                       | 547  |
-|                            |      |
+https://onlinecourses.nptel.ac.in/noc22_cs59/preview
 
 
 
 
 
 
+# Greedy Algorithms
+
+https://www.youtube.com/watch?v=cklYqfIRDao&list=PLyqSpQzTE6M9p9pKxFGpskf4voY45T2DZ&index=11
 
 
-## TCP
-
- - All TCP connections are full-duplex and point-to-point.  
- - TCP does not support multicasting or broadcasting.
- - Header size = 20 to 60 bytes
+## Pancake Flipping
 
 
 
-responsible for restricting TCP segment = 
-IP payload and Maximum Transmission Unit (MTU) of the link
+
+## Islands War
 
 
-Sender window in TCP
-Sender Window = min(Congestion Window, Receiver Window)
+
+## Stable Marriage
 
 
-## UDP
 
-- UDP doesn't have any flow control, congestion control
--  DNS used UDP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Graphs Trees
+
+
+
+
+## Disjoint Set Union
+
 
 
 
@@ -89,57 +101,167 @@ Sender Window = min(Congestion Window, Receiver Window)
 
 ---
 
-outstanding frames = Frames that have been transmitted, but not yet acknowledged
+
+<h1 align="center">Assignments</h1>
+
+## Graph
+
+
+1. Dijkstra Algorithm
+
+- Given a graph where all edges have positive weights, the shortest path produced by Dijkstra's and Bellman Ford algorithm may be different but path weight would be same.
+- The shortest path between two vertices and in a graph always remains unaltered when all the edges of are multiplied by a positive integer.
+
+
+2. BFS
+
+- If all edges have the same weight in an undirected graph, **BFS** algorithm will find the shortest path between two nodes more efficiently.
+- 
+
+
+3. Floyd Warshall Algorithm
+
+- It can detect negative weight cycles in the graph
+- It works correctly if the graph has negative edge weights but does not have negative weight cycles
+- The time complexity of Floyd-Warshall is O(V^3), where V is the number of vertices in the graph.
+
+
+4. Spanning tree of connected graph
+
+- A spanning tree is a connected acyclic graph
+- In a spanning tree, every pair of nodes is connected by a unique path
 
 
 
-Initializes the file descriptor set fd_set — a bitmap of fixed size  
-FD_ZERO: Initializes the file descriptor set fd_set – a bitmap of fixed size
-
-
-The rate of increase in the congestion window is very slow
-
-
----
-
-From week 7
-
-
-
-affecting network performance due to congest
-- Bandwidth  
-- Delay  
-- Jitter
-
-
-video conferencing = Real-Time variable bit rate
-
-traffic scheduling algorithm = Weighted Fair Queuing (WFQ)
-
-Intra-domain routing is used within a single network, while inter-domain routing is used between different networks.
-
-
-
-Notes:
-- RIP is a distance vector routing protocol used for small to medium-sized networks.
-- BGP is used for inter-domain routing on the Internet
-- Open Shortest Path First (OSPF) is  a link state routing protocol, used for intra-domain routing in the Internet
+5. Maximum flow
+- Ford-Fulkerson algorithm uses the idea of BFS
+- T.C. of Ford-Fulkerson = O(maxflow * |E|)
+- T.C. of finding an augmented path = O(|E|)
+- The minimum cut = the maximum flow
 
 
 
 
-## QoS
-- The primary goal of QoS is
+
+## DP
+
+1. LIS
+- TC = O(N^2)
+
+
+Dice Combination:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int minCostFrog(std::vector<int>& heights) {
+    int n = heights.size();
+    std::vector<int> dp(n, 0);
+    dp[1] = abs(heights[1] - heights[0]);
+
+    for (int i = 2; i < n; ++i) {
+        dp[i] = std::min(dp[i-1] + abs(heights[i] - heights[i-1]), dp[i-2] + abs(heights[i] - heights[i-2]));
+    }
+
+    return dp[n-1];
+}
+
+int main() {
+    std::vector<int> heights = {10, 15, 14, 19, 20, 16, 19, 27, 15, 16, 10, 23};
+    std::cout << minCostFrog(heights) << std::endl;
+    return 0;
+}
+
+```
 
 
 
----
+Grid unique path:
+```cpp
+#include <iostream>
+#include <vector>
 
-Which of the following datastructures are used for speeding up the Longest Prefix Matching based Forwarding algorithms in routers?
-- Ans: Patricia Trees
+int uniquePaths(int rows, int cols) {
+    std::vector<std::vector<int>> dp(rows, std::vector<int>(cols, 0));
+
+    // Initialize the first row and first column to 1
+    for (int i = 0; i < rows; ++i) {
+        dp[i][0] = 1;
+    }
+    for (int j = 0; j < cols; ++j) {
+        dp[0][j] = 1;
+    }
+
+    // Calculate the number of paths for each cell
+    for (int i = 1; i < rows; ++i) {
+        for (int j = 1; j < cols; ++j) {
+            dp[i][j] = dp[i-1][j] + dp[i][j-1];
+        }
+    }
+
+    return dp[rows-1][cols-1];
+}
+
+int main() {
+    int rows = 6, cols = 11;
+    std::cout << uniquePaths(rows, cols) << std::endl;
+    return 0;
+}
+
+```
 
 
+Grid unique path with block:
+```cpp
+#include <iostream>
+#include <vector>
 
-MAC protocols enable two nodes using their separate communication resources to establish, maintain and terminate a connection.
+int uniquePaths(int rows, int cols) {
+    // Initialize the grid with zeros
+    std::vector<std::vector<int>> grid(rows, std::vector<int>(cols, 0));
 
+    // Mark the blockage at (3, 2)
+    grid[3][2] = -1;
 
+    // Initialize the first row and first column to 1
+    for (int i = 0; i < rows; ++i) {
+        if (grid[i][0] != -1) {
+            grid[i][0] = 1;
+        } else {
+            break; // Stop initializing if there's a blockage
+        }
+    }
+    for (int j = 0; j < cols; ++j) {
+        if (grid[0][j] != -1) {
+            grid[0][j] = 1;
+        } else {
+            break; // Stop initializing if there's a blockage
+        }
+    }
+
+    // Calculate the number of paths for each cell
+    for (int i = 1; i < rows; ++i) {
+        for (int j = 1; j < cols; ++j) {
+            if (grid[i][j] == -1) {
+                continue; // Skip blocked cells
+            }
+            if (grid[i-1][j] != -1) {
+                grid[i][j] += grid[i-1][j];
+            }
+            if (grid[i][j-1] != -1) {
+                grid[i][j] += grid[i][j-1];
+            }
+        }
+    }
+
+    return grid[rows-1][cols-1];
+}
+
+int main() {
+    int rows = 6, cols = 5; // 6 rows, 5 columns
+    std::cout << uniquePaths(rows, cols) << std::endl;
+    return 0;
+}
+
+```
